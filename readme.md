@@ -1,4 +1,5 @@
-# ASSIGNMENT1
+# RT1_ASSIGNMENT1
+# Submitted by Subhransu Sourav Priyadarshan & Supervised by Prof. Carmine Recchiuto
 ## ABSTRACT
 
 The task of the robot is to detect the gold and the silver tokens.To be specific, the objective of the robot is to pick up the silver token and drop and then move forward to the next one.The sensors present in the robot would have the capability to sense the tokens in all directions.
@@ -29,8 +30,73 @@ The robot then turns around and releases the silver token.Then it turns back in 
 
 The function is used to detect the gold token and avoid it in the due process.The distance and angle of the closest gold token can be found and avoided.
 
+## FUNCTIONS USED
+
+The function __find_silver_token()__ is used to find the closest silver token.
+```python
+def find_silver_token(angle,length):
+    
+
+    Returns:
+	dist (float): distance of the closest silver token (-1 if no silver token is detected)
+	rot_y (float): angle between the robot and the silver token (-1 if no silver token is detected)
+    
+#angle signifies the angle between the silver token and the robot
+#length signifies the length of the field visible ahead
+    dist=100
+    for token in R.see():
+       if token.dist < dist and token.info.marker_type is MARKER_TOKEN_SILVER and angle+length>=token.rot_y>=angle-length:
+            dist=token.dist
+	    rot_y=token.rot_y
+    if dist==100:
+      return -1,-1
+    else:
+      return dist,rot_y
+```
+
+The function __find_golden_token()__ is used to find the closest golden token.
+
+```python
+def find_golden_token(angle,length):
+ 
+    Returns:
+	dist (float): distance of the closest golden token (-1 if no golden token is detected)
+	rot_y (float): angle between the robot and the golden token (-1 if no golden token is detected)
+    
+#angle signifies the angle between the silver token and the robot
+#length signifies the length of the field visible ahead   
+    dist=100
+    for token in R.see():
+        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and  angle+length>=token.rot_y>=angle-length:
+            dist=token.dist
+	    rot_y=token.rot_y
+    if dist==100:
+	return -1, -1
+    else:
+   	return dist, rot_y
+```
+The function __avoid_gold_wall()__ is used to avoid collision with the wall.
+
+```python
+
+def avoid_gold_wall():
+    dist,rot_y=find_golden_token(0,70)
+    if dist==-1:
+       return
+    elif dist<s_th:
+         left=left_winger()
+         if left:
+            while(rot_y<g_th):
+                 turn(-20,0.1)
+                 dist,rot_y=find_golden_token(0,5)
+         else :
+              while(rot_y<g_th):
+                   turn(+20,0.1)
+                   dist,rot_y=find_golden_token(0,5)
+```
+                   
 ## FLOWCHART
-![flowchart](flowchart.png)
+![flowchart](flowchart1.png)
 
 ## CONCLUSION AND IMPROVEMENTS 
 
