@@ -96,7 +96,8 @@ def avoid_gold_wall():
 ```
                    
 ## FLOWCHART
-![flowchart](flowchart1.png)
+![Screenshot (5)](https://user-images.githubusercontent.com/93926797/188450244-92a6d503-d55a-487c-8e68-b519c100b002.png)
+
 
 ## CONCLUSION AND IMPROVEMENTS 
 
